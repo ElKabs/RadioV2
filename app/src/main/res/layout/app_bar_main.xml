@@ -25,8 +25,8 @@
 
     <ImageButton
         android:id="@+id/play"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="105dp"
+        android:layout_height="82dp"
         android:layout_gravity="center_vertical|center_horizontal"
         app:layout_anchor="@+id/include"
         app:layout_anchorGravity="center_vertical|center_horizontal"
