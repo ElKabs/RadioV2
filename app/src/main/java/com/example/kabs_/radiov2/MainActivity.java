@@ -26,7 +26,7 @@ import java.io.IOException;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, OnClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener, OnClickListener{
 
     String url = "http://www.cadenasuper.com:8004/";
     MediaPlayer mediaPlayer;
