@@ -68,20 +68,17 @@ public class MainActivity extends AppCompatActivity
             if(!reproduciendo) {
                 reproducir();
                 reproduciendo = true;
-                bt.setBackgroundColor(Color.WHITE);
-                bt.setBackgroundResource(android.R.drawable.ic_media_play);
+                bt.setImageResource(android.R.drawable.ic_media_pause);
             }
             else{
                 pausar();
                 reproduciendo = false;
-                bt.setBackgroundColor(Color.WHITE);
-                bt.setBackgroundResource(android.R.drawable.ic_media_pause);
+                bt.setImageResource(android.R.drawable.ic_media_play);
             }
             Log.d("MainActivity", "Reproduciendo...");
         } catch (Exception e) {
             Log.e("StreamAudioDemo", e.getMessage());
         }
-        Log.d("Hora", estaEnHora());
     }
 
     @Override
@@ -123,7 +120,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
