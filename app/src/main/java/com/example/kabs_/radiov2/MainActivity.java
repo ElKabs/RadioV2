@@ -4,9 +4,11 @@ import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -21,17 +23,38 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import org.apache.commons.net.time.TimeTCPClient;
+import android.support.fragment.*;
+import com.google.android.exoplayer2.*;
+import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
+import com.google.android.exoplayer2.extractor.ExtractorsFactory;
+import com.google.android.exoplayer2.source.ExtractorMediaSource;
+import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.trackselection.TrackSelection;
+import com.google.android.exoplayer2.trackselection.TrackSelector;
+import com.google.android.exoplayer2.upstream.BandwidthMeter;
+import com.google.android.exoplayer2.upstream.DataSource;
+import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
+import com.google.android.exoplayer2.util.Util;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnClickListener{
 
-    String url = "http://www.cadenasuper.com:8004/";
+    String url = "http://whooshserver.net:8629/live";
     MediaPlayer mediaPlayer;
     boolean reproduciendo = false;
     ImageButton bt;
+
+    private SimpleExoPlayer player;
+
+    Uri radioUri = Uri.parse(url);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +62,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -60,13 +74,14 @@ public class MainActivity extends AppCompatActivity
 
         bt = (ImageButton)findViewById(R.id.play);
         bt.setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View v) {
         try {
             if(!reproduciendo) {
-                reproducir();
+                reproducir2();
                 reproduciendo = true;
                 bt.setImageResource(android.R.drawable.ic_media_pause);
             }
@@ -139,7 +154,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void pausar(){
-        mediaPlayer.pause();
+        player.setPlayWhenReady(false);
     }
 
     public void reproducir(){
@@ -160,31 +175,26 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public String estaEnHora() {
-            try {
-                TimeTCPClient client = new TimeTCPClient();
-                try {
-                    client.setDefaultTimeout(60000);
-                    client.connect("time-a.nist.gov");
-    //	                System.out.println(client.getDate().toString());
-                    String aConvertir = client.getDate().toString();
-                    System.out.println(aConvertir);
-                    String sHora = aConvertir.split(" ")[3].split(":")[0];
-                    System.out.println(sHora);
-                    int hora = Integer.parseInt(sHora);
-                    if(hora>=5&&hora<=7&&hora>=12&&hora<=14){
-                        return "sisas";
-                    }
-                    else{
-                        return "noks";
-                    }
-                } finally {
-                    client.disconnect();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return "noks";
+    public void reproducir2(){
+            BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
+            ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
+
+            TrackSelection.Factory trackSelectionFactory = new AdaptiveTrackSelection.Factory(bandwidthMeter);
+
+            TrackSelector trackSelector = new DefaultTrackSelector(trackSelectionFactory);
+
+            DefaultBandwidthMeter defaultBandwidthMeter = new DefaultBandwidthMeter();
+            DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(this,
+                    Util.getUserAgent(this, "mediaPlayerSample"), defaultBandwidthMeter);
+
+            MediaSource mediaSource = new ExtractorMediaSource(Uri.parse(url), dataSourceFactory, extractorsFactory, null, null);
+
+            player = ExoPlayerFactory.newSimpleInstance(this, trackSelector);
+
+            player.prepare(mediaSource);
+
+            player.setPlayWhenReady(true);
         }
+
     }
 
