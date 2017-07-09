@@ -20,7 +20,7 @@ public class Main2Activity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         WebView webView = (WebView) findViewById(R.id.nav_view);//aqui deberia aparecer webView wn vez de nav_view
         //pero no se le da la gana de aparercer
-        webView.loadUrl("https://www.facebook.com/Noticiasdelllano/?ref=ts&fref=ts");
+        webView.loadUrl("https://m.facebook.com/profile.php?_user=Noticiasdelllano");
         webView.getSettings().getJavaScriptEnabled();
         webView.setWebViewClient(new WebViewClient());
 

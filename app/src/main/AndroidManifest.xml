@@ -24,7 +24,15 @@
         <activity
             android:name=".Main2Activity"
             android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN2" />
+
+            <category android:name="android.intent.category.LAUNCHER2" />
+        </intent-filter>
+        </activity>
+
+
         <activity android:name=".Main3Activity"></activity>
     </application>
 
