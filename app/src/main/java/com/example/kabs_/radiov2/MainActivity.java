@@ -1,6 +1,8 @@
 package com.example.kabs_.radiov2;
 
 import android.app.ProgressDialog;
+import android.content.ComponentName;
+import android.content.Intent;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -120,10 +122,7 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        //noinspection SimplifiableIfStatemen
 
         return super.onOptionsItemSelected(item);
     }
@@ -134,7 +133,12 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.face) {
+            //aqui hay que buscar la manera de iniciar la activity main2 osea la de face
+            //para probar si funciona el webView
+            //depronto falla por el link pero e Stack hay links que si funcionan
+            //si funciona ya terminamos la app porque es hacer lo mismo en Twitter y la pag
+            //startActivity(); -aun no entiendo como funciona este metodo
 
         } else if (id == R.id.nav_gallery) {
 

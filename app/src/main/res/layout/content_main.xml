@@ -12,14 +12,14 @@
 
     <ImageButton
         android:id="@+id/play"
-        android:layout_width="67dp"
-        android:layout_height="56dp"
+        android:layout_width="64dp"
+        android:layout_height="50dp"
         android:layout_gravity="center"
         app:layout_anchor="@+id/include"
         app:layout_anchorGravity="bottom|left"
         app:srcCompat="@android:drawable/ic_media_play"
-        tools:layout_editor_absoluteX="148dp"
-        tools:layout_editor_absoluteY="218dp" />
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-1dp" />
 
 
 </android.support.constraint.ConstraintLayout>
