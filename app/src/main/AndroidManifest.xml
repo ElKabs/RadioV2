@@ -25,11 +25,11 @@
             android:name=".Main2Activity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN2" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN2" />
 
-            <category android:name="android.intent.category.LAUNCHER2" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER2" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".Main3Activity"
@@ -41,6 +41,10 @@
                 <category android:name="android.intent.category.LAUNCHER3" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Main5Activity"
+            android:label="@string/title_activity_main5"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
