@@ -134,7 +134,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.face) {
-            startActivity(new Intent("android.intent.action.MAIN2"));
+            Intent i = new Intent(this, Main2Activity.class);
+            startActivity(i);
             //aqui hay que buscar la manera de iniciar la activity main2 osea la de face
             //para probar si funciona el webView
             //depronto falla por el link pero e Stack hay links que si funcionan

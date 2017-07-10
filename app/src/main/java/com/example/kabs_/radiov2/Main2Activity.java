@@ -10,7 +10,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 public class Main2Activity extends AppCompatActivity {
-
+    WebView webView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,9 +18,9 @@ public class Main2Activity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        WebView webView = (WebView) findViewById(R.id.nav_view);//aqui deberia aparecer webView wn vez de nav_view
+        WebView webView = (WebView) findViewById(R.id.mWebView);//aqui deberia aparecer webView wn vez de nav_view
         //pero no se le da la gana de aparercer
-        webView.loadUrl("https://m.facebook.com/profile.php?_user=Noticiasdelllano");
+        webView.loadUrl("https://m.facebook.com/Noticiasdelllano");
         webView.getSettings().getJavaScriptEnabled();
         webView.setWebViewClient(new WebViewClient());
 
