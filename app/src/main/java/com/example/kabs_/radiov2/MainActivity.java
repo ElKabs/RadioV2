@@ -143,7 +143,8 @@ public class MainActivity extends AppCompatActivity
             //startActivity(); -aun no entiendo como funciona este metodo
 
         } else if (id == R.id.nav_gallery) {
-
+            Intent i = new Intent(this, Main3Activity.class);
+            startActivity(i);
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {

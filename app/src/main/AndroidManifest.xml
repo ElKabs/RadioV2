@@ -31,9 +31,16 @@
             <category android:name="android.intent.category.LAUNCHER2" />
         </intent-filter>
         </activity>
+        <activity
+            android:name=".Main3Activity"
+            android:label="@string/title_activity_main3"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN3" />
 
-
-        <activity android:name=".Main3Activity"></activity>
+                <category android:name="android.intent.category.LAUNCHER3" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
