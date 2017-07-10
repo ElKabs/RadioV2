@@ -146,12 +146,10 @@ public class MainActivity extends AppCompatActivity
             Intent i = new Intent(this, Main3Activity.class);
             startActivity(i);
         } else if (id == R.id.nav_slideshow) {
+            Intent i = new Intent(this, Main5Activity.class);
+            startActivity(i);
 
         } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
 
         }
 

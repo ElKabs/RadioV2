@@ -10,7 +10,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 public class Main5Activity extends AppCompatActivity {
-
+    WebView webView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,7 +19,7 @@ public class Main5Activity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         WebView webView = (WebView) findViewById(R.id.mWebView);
         //queda pendiente por copyright
-        webView.loadUrl("https://m.facebook.com/Noticiasdelllano");
+        webView.loadUrl("http://www.noticiasdelllano.com/es");
         webView.getSettings().getJavaScriptEnabled();
         webView.setWebViewClient(new WebViewClient());
 
