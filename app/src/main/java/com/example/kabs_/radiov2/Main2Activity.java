@@ -42,9 +42,6 @@ public class Main2Activity extends AppCompatActivity {
     public void onResume()
     {
         super.onResume();
-        NotificationManager mNotificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.cancel(001);
     }
     }
 

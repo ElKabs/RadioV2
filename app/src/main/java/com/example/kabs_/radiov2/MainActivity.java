@@ -190,6 +190,7 @@ public class MainActivity extends AppCompatActivity
     public void onDestroy(){
         super.onDestroy();
         pausar();
+        borrarNotif();
     }
 
 
@@ -225,7 +226,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void pausar(){
-        player.setPlayWhenReady(false);
+        player.stop();
     }
 
     public void reproducir2(){
