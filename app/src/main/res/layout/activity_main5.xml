@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context="com.example.kabs_.radiov2.Main5Activity">
 
+    <include
+        layout="@layout/app_bar_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

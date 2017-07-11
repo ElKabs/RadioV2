@@ -1,8 +1,14 @@
 package com.example.kabs_.radiov2;
 
+import android.app.IntentService;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -11,6 +17,9 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationManagerCompat;
+import android.support.v7.app.NotificationCompat;
+import android.util.DebugUtils;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -23,6 +32,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.ImageButton;
 import org.apache.commons.net.time.TimeTCPClient;
 import android.support.fragment.*;
@@ -46,6 +56,8 @@ import java.util.Date;
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
 
+import static com.example.kabs_.radiov2.MainActivity.ACTION_1;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnClickListener{
 
@@ -57,6 +69,13 @@ public class MainActivity extends AppCompatActivity
     private SimpleExoPlayer player;
 
     Uri radioUri = Uri.parse(url);
+    private int onStatusResume = 0;
+    private static final int NOTIFICATION_ID = 1234;
+
+    public static final String ACTION_1 = "action_1";
+    public static final String ACTION_2 = "action_2";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +95,6 @@ public class MainActivity extends AppCompatActivity
 
         bt = (ImageButton)findViewById(R.id.play);
         bt.setOnClickListener(this);
-
     }
 
     @Override
@@ -127,6 +145,48 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onStop(){
+        super.onStop();
+
+        NotificationCompat.Builder mBuilder =
+                (NotificationCompat.Builder) new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.notif36)
+                        .setContentTitle("Noticias del Llano")
+                        .setContentText("Toca para volver");
+
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP|   Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
+        mBuilder.setContentIntent(pendingIntent);
+        mBuilder.setOngoing(true);
+
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        mNotificationManager.notify(001, mBuilder.build());
+
+
+
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.cancelAll();
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        pausar();
+    }
+
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -162,24 +222,6 @@ public class MainActivity extends AppCompatActivity
         player.setPlayWhenReady(false);
     }
 
-    public void reproducir(){
-        try {
-            mediaPlayer = new MediaPlayer();
-            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            mediaPlayer.setDataSource(url);
-            mediaPlayer.prepareAsync();
-            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener(){
-                @Override
-                public void onPrepared(MediaPlayer mp){
-                    mediaPlayer.start();
-                }
-            });
-        }
-        catch(Exception e){
-            Log.e("StreamAudio", e.getMessage());
-        }
-    }
-
     public void reproducir2(){
             BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
             ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
@@ -201,5 +243,22 @@ public class MainActivity extends AppCompatActivity
             player.setPlayWhenReady(true);
         }
 
+    public static class NotificationActionService extends IntentService {
+        MainActivity main = new MainActivity();
+        public NotificationActionService() {
+            super(NotificationActionService.class.getSimpleName());
+        }
+
+        @Override
+        protected void onHandleIntent(Intent intent) {
+            String action = intent.getAction();
+
+            if (ACTION_1.equals(action)) {
+                main.pausar();
+            }
+        }
     }
+    }
+
+
 
