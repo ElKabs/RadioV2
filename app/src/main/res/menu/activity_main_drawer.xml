@@ -5,7 +5,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/este"
+            android:icon="@drawable/internet"
             android:title="Pagina Web" />
         <item
             android:id="@+id/face"
@@ -18,8 +18,8 @@
 
         <item
             android:id="@+id/nav_manage"
-            android:icon="@drawable/este"
-            android:title="DEV TEAM" />
+            android:icon="@drawable/insta"
+            android:title="Instagram" />
     </group>
 
 
