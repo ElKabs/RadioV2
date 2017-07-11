@@ -180,6 +180,12 @@ public class MainActivity extends AppCompatActivity
         mNotificationManager.cancelAll();
     }
 
+    public void borrarNotif(){
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.cancelAll();
+    }
+
     @Override
     public void onDestroy(){
         super.onDestroy();

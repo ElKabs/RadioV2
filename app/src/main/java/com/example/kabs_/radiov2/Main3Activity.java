@@ -13,6 +13,7 @@ import android.webkit.WebViewClient;
 //Twitter
 public class Main3Activity extends AppCompatActivity {
     WebView webView;
+    MainActivity main = new MainActivity();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,8 +34,5 @@ public class Main3Activity extends AppCompatActivity {
     public void onResume()
     {
         super.onResume();
-        NotificationManager mNotificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.cancelAll();
     }
 }

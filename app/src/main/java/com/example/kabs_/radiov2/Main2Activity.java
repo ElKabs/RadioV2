@@ -17,6 +17,7 @@ import android.webkit.WebViewClient;
 
 public class Main2Activity extends AppCompatActivity {
     WebView webView;
+    MainActivity main = new MainActivity();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +44,7 @@ public class Main2Activity extends AppCompatActivity {
         super.onResume();
         NotificationManager mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.cancelAll();
+        mNotificationManager.cancel(001);
     }
     }
 
