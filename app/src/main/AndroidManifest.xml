@@ -63,6 +63,10 @@
         <activity
             android:name=".Instagram"
             android:label="@string/title_activity_instagram"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".info"
+            android:label="@string/title_activity_info"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
