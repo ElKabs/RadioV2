@@ -75,6 +75,8 @@ public class MainActivity extends AppCompatActivity
     public static final String ACTION_1 = "action_1";
     public static final String ACTION_2 = "action_2";
 
+    MediaSource mediaSource;
+
 
 
     @Override
@@ -95,6 +97,8 @@ public class MainActivity extends AppCompatActivity
 
         bt = (ImageButton)findViewById(R.id.play);
         bt.setOnClickListener(this);
+
+        inicializarRepro();
     }
 
     @Override
@@ -148,7 +152,12 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onStop(){
         super.onStop();
+        if(reproduciendo) {
+            crearNotif();
+        }
+    }
 
+    public void crearNotif(){
         NotificationCompat.Builder mBuilder =
                 (NotificationCompat.Builder) new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.notif36)
@@ -166,9 +175,6 @@ public class MainActivity extends AppCompatActivity
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         mNotificationManager.notify(001, mBuilder.build());
-
-
-
     }
 
     @Override
@@ -193,6 +199,23 @@ public class MainActivity extends AppCompatActivity
         borrarNotif();
     }
 
+
+    public void inicializarRepro(){
+        BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
+        ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
+
+        TrackSelection.Factory trackSelectionFactory = new AdaptiveTrackSelection.Factory(bandwidthMeter);
+
+        TrackSelector trackSelector = new DefaultTrackSelector(trackSelectionFactory);
+
+        DefaultBandwidthMeter defaultBandwidthMeter = new DefaultBandwidthMeter();
+        DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(this,
+                Util.getUserAgent(this, "mediaPlayerSample"), defaultBandwidthMeter);
+
+        mediaSource = new ExtractorMediaSource(Uri.parse(url), dataSourceFactory, extractorsFactory, null, null);
+
+        player = ExoPlayerFactory.newSimpleInstance(this, trackSelector);
+    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -231,25 +254,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void reproducir2(){
-            BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
-            ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
+        player.prepare(mediaSource);
 
-            TrackSelection.Factory trackSelectionFactory = new AdaptiveTrackSelection.Factory(bandwidthMeter);
-
-            TrackSelector trackSelector = new DefaultTrackSelector(trackSelectionFactory);
-
-            DefaultBandwidthMeter defaultBandwidthMeter = new DefaultBandwidthMeter();
-            DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(this,
-                    Util.getUserAgent(this, "mediaPlayerSample"), defaultBandwidthMeter);
-
-            MediaSource mediaSource = new ExtractorMediaSource(Uri.parse(url), dataSourceFactory, extractorsFactory, null, null);
-
-            player = ExoPlayerFactory.newSimpleInstance(this, trackSelector);
-
-            player.prepare(mediaSource);
-
-            player.setPlayWhenReady(true);
-        }
+        player.setPlayWhenReady(true);
+    }
 
     public static class NotificationActionService extends IntentService {
         MainActivity main = new MainActivity();
@@ -266,7 +274,7 @@ public class MainActivity extends AppCompatActivity
             }
         }
     }
-    }
+}
 
 
 
