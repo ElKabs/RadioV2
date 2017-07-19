@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.kabs_.radiov2.Main3Activity">
+    tools:context="com.alesoft.noticiasdellano.v1.Main3Activity">
 
     <include
         layout="@layout/app_bar_main"
